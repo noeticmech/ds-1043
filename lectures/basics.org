@@ -1,0 +1,248 @@
+#+title: Python Programming Basics
+#+author: Dr. Matthew Butler
+#+date: 26 August 2024
+#+startup: show2levels
+:EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+#+property: header-args :eval no-export
+:END:
+
+#+begin_quote
+Programming is the art of telling another human being what one wants the computer to do.
+
+-- Donald Knuth[fn:knuth]
+#+end_quote
+
+:footnotes:
+[fn:knuth] *Donald Knuth* (b.1938) is an American computer scientist and mathematician, and the 1974 recipient of the ACM Turing Award. Knuth is the author of the multi-volume work /The Art of Computer Programming/ and a pioneer in the study of the analysis of algorithms, popularizing asymptotic ("Big-O") notation. In addition, Knuth is the creator of the TeX computer typesetting system, and a proponent of literate programming.
+:end:
+
+* What is a Program?
+A *program* is a sequence of instructions that specifies how to perform a computation. Details differ depending on the programming language used, but the basic kinds of instructions include:
+- *Input* - get data from the keyboard, a file, the network, or some other device
+- *Output* - display data on the screen, write it to a file, send it across the network, etc.
+- *Math* - perform basic mathematical operations on data
+- *Conditional Execution* - check for certain conditions and execute instructions based on whether or not those conditions are met
+- *Repetition* - perform some instructions repeatedly
+  
+* Formal and Natural Language
+Programming languages like Python are examples of *formal languages*. Other formal languages include various systems of notation used in mathematics and science. While there are many similarities between formal languages and *natural languages*, such as English, formal languages are designed to be more literal, less redundant, and less ambiguous.
+
+Formal languages tend to have strict *syntax* rules that govern the structure of statements. One set of rules determine what constitutes a valid element of the language, analogous to words in English. These basic elements are most often referred to as *tokens*. A second set of rules governs how tokens are arranged to construct valid statements, analogous to sentences in English.[fn:syntax] The act of interpreting the structure of a statement is called *parsing*.
+
+Programming languages are often categorized based on whether they are designed to be primarily read by humans or machines. Programming languages meant to be read and more easily understood by humans[fn:hopper] are called *high-level languages* and are typically *portable*, meaning they can be run on multiple kinds of computers. Programming languages designed to be easily read by a computer is called a *low-level language* and is typically designed for a specific computer or family of computers.
+
+:footnotes:
+[fn:syntax] The formal names for these rules are "lexical" and "grammatical" rules, respectively.
+[fn:hopper] *Grace Hopper* (1906-1992) was an American computer scientist, mathematician, and United States Navy rear admiral. Hopper was instrumental in the construction and operation of several of the earliest computers and the first to devise the theory of machine-independent programming languages, which she used to develop the FLOW-MATIC programming language and COBOL, an early high-level programming language still in use today. 
+:end:
+
+* Running Python
+
+The Python *interpreter* is a program that reads and executes Python code. The interpreter can be used interactively[fn:REPL], or invoked to run a pre-written program. The Python interpreter uses ~>>>~ as a *prompt*, indicating that it is ready to receive input from you, the user.
+
+#+caption: The Typical First Program
+#+begin_src python :results output
+print('Hello World!')
+#+end_src
+
+You can type this directly into the interpreter, or you can save this line to a file, e.g. ~helloworld.py~ and execute it on the command line (or via a shortcut) using ~python helloworld.py~. It's also possible to include this program in your interpreter session or in another program using the ~import~ statement, i.e. ~import helloworld~. Notice that import doesn't need you to include file extension.
+
+In this first program, we are using the ~print~ function to produce output. If we want basic input from the user when running a program without using the interpreter interactively, we can use the ~input~ function. 
+
+#+caption: tim.py
+#+begin_example
+name = input('What is your name? ')
+quest = input('What is your quest? ')
+speed = input('What is the air-speed velocity of an unladen swallow? ')
+#+end_example
+
+Sometime it is helpful to include non-instruction information, i.e. a *comment* in a python file. The standard way to do this is with a ~#~.
+
+#+caption: tim.py
+#+begin_example
+speed = input('What is the air-speed velocity of an unladen swallow? ') # African or European?
+#+end_example
+
+:footnotes:
+[fn:REPL] This is often referred to as a "REPL" or "Read-Evaluate-Print Loop".
+:end:
+
+* Arithmetic Operations
+
+Python has all the arithmetic operators you are probably familiar with, and a few more besides. Addition and subtraction will look familiar. Python uses the asterisk (~*~) for multiplication and a double astrisk (~**~) for exponentiation. There are *two* kinds of division, one for floating point numbers[fn:float] (~/~) and another for integers[fn:int] (~//~). Finally, there is the "modulo" operator (~%~), which gives the remainder of a division rather than the quotient.
+
+Python follows mathematical convenion for order of operations (e.g. PEMDAS). If in doubt, or if it makes your intent clearer, use parentheses when entering mathematical expressions.
+
+Python also provides some built-in mathematical functions, like ~abs~ and ~round~.
+
+:footnotes:
+[fn:float] Doing floating point math on binary computers can be unintuitive. For example, just as 1/3 results in a repeating decimal, 1/10 results in a reapeating "binary". Also, since computers store floating points with fixed precision, there are gaps between representable numbers.
+
+[fn:int] The result of integer division is *truncated*, meaning that the fractional part of the quotient is discarded.
+:end:
+
+** Let's Practice
+
+1. How many seconds are there in 42 minutes 42 seconds?
+
+2. How many miles are there in 10 kilometers? Hint: there are 1.61 kilometers in a mile.
+
+3. If you run a 10 kilometer race in 42 minutes 42 seconds, what is your average pace in seconds per mile?
+
+4. What is your average pace in minutes and seconds per mile?
+
+5. What is your average speed in miles per hour?
+
+6. If a movie is 105 minutes long, what is that in hours and minutes?
+
+* Values and Types
+
+We've already seen that Python has two different division operators depending on what *type* of data we are working with. We can check what type of data we're dealing with using ~type()~. A given piece of data is called a *value*. So far we've seen a few values, such as ~'Hello World!'~, ~42~, and ~1.61~. Values that are /literally/ included in code are often referred to as "literals" or *literal values*.
+
+By default, Python uses an approach to types called "duck typing".[fn:python-data-model] That is, good Python code cares more about whether it walks like a duck and quacks like a duck more than whether ~type(creature)~ returns ~duck~.
+
+:footnotes:
+[fn:python-data-model] Much of this is accomplished with the "Python Data Model", which, among other things, specifies how to implement different (or even new) types such that they can be interacted with in an intuitive and type-agnostic manner. We probably won't get into the fine details of the Python Data Model in this course, but it is good to be aware of.
+
+[fn:bugs] Errors in computer code are referred to as "bugs". While this terminology had been used before to describe errors in other fields, its use in Computer Science was popularized by Dr. Grace Hopper after a literal bug was found causing a malfunction in the Mark II computer at Harvard.
+:end:
+
+* Assignment Statements
+
+*Variables* are names that refer to values. We can create variables using an *assignment statement*.
+
+#+begin_example
+>>> message = 'And now for something completely different'
+>>> count = (1, 2, 5)
+>>> i = 1
+#+end_example
+
+Sometimes when trying to understand how a program works, it is helpful to use a *state diagram* to show variables and their values at a given point in the execution of a program.
+
+#+caption: Example State Diagram
+#+begin_table
+| message | -> | 'And now for something completely different' |
+| count   | -> | (1, 2, 5)                                    |
+| i       | -> | 1                                            |
+#+end_table
+
+Since Python 3.5, we can add "type hints" to our Python code. The interpreter ignores these hints, but IDEs and other python tools can make use of them to alert us to potential errors.[fn:bugs]
+
+#+begin_example
+some_variable: int = 5
+#+end_example
+
+Sometimes it is helpful to create variables which won't change during the course of execution. We call these variables *constants*.
+
+One of the primary reasons to use constants is to avoid "*magic numbers*", that is, literal values in code that have little to no explanation. For example, would you recognize 86400 as the number of seconds in a day?
+
+#+begin_example
+SECONDS_PER_DAY: int = 86400
+#+end_example
+
+Another reason we use constants is to be able to quickly change a value across a program without having to search and replace. Or we may even want to read values in from another source, like a configuration file.
+
+* Variable Names
+Variable names should be chosen to make understanding the program easier. They can be as long as you want, include letters, numbers, and a couple "connector" symbols, like '~_~', but cannot start with a number. They also cannot be words that mean something specific to Python, e.g. *keywords*. Beware naming your variables the same thing as built-in functions like ~abs~.
+
+By convention,[fn:pep8] most variable names should be lowercase, with words separated by underscores as necessary to improve readability. Constants should be all caps, with words separated by underscores.
+
+Avoid single letter variable names unless it is part of a common convention, i.e. ~x~, ~y~, ~z~ for coordinates, or ~i~, ~j~, ~k~, ~n~ for series and repetition.
+
+:footnotes:
+[fn:pep8] The style conventions for Python can be found in PEP 8 (https://peps.python.org/pep-0008/). PEP stands for "Python Enhancement Proposal" and is one way many Python standards and features are documented.
+:end:
+
+* Expressions and Statements
+
+An *expression* is a "phrase" of code that has a value, while *statements* are pieces of code that do something. If you type an expression in the interpreter and press enter, the interpreter *evaluates* the expression and prints its value.
+
+Note that when we aren't using the Python interpreter interactively, expressions are not printed unless we explicitly call ~print~ on that expression.
+
+* String operations
+
+Strings are generally not the subject of mathematical operations, but /by analogy/[fn:overload] we do use ~+~ and ~*~ to *concatenate* strings, that is, join them together.
+
+#+begin_src python :results output
+  print('green' + 'midget' + 'cafe')
+  print('spam' * 6)
+#+end_src
+
+:footnotes:
+[fn:overload] The technical way of saying this is that the ~+~ and ~*~ have been /overloaded/ to perform string concatenation.
+:end:
+
+* Boolean expressions
+A *boolean expression* is an expression whose value is either ~True~ or ~False~.
+
+We have a handful of *relational operators* that we can use to compare values:
+#+begin_example
+x == y # is x equal to y?
+x != y # is x not equal to y?             
+x < y  # is x less than y?                
+x <= y # is x less than or equal to y?    
+x >= y # is x greater than or equal to y? 
+x > y  # is x greater than y?             
+#+end_example
+
+We can build more complicated boolean expression by using the *logical operators* ~and~, ~or~, and ~not~ to combine smaller boolean expressions.
+
+* Conditional execution
+Python has several *compound statements*, which are statements with some sort of header terminated with a ~:~ and followed by an indented body (aka block) of code. When you type the header of a compound statement into the interpreter, you'll notice that the prompt changes from ~>>>~ to ~...~.
+
+Our first compound statement will be *conditional statements*: if the specified condition is met, then the body of the statement will be executed. It is common to call the body (or bodies) of a conditional statement a *branch*, as they are different (branching) paths of execution that the program may take given the conditions.
+
+#+caption: Basic Conditional (if) Statement
+#+begin_example
+if x < 0:
+    pass # TODO handle negative values of x
+#+end_example
+
+Rather than having multiple ~if~ statements for ~condition~ and ~not condition~, we can use the ~else~ statement.
+
+#+caption: Alternative Execution (if-else)
+#+begin_example
+if x < 0:
+    answer = None
+else:
+    answer = y / x
+#+end_example
+
+And if we need an even more complicated set of conditionals, we can use ~elif~, short for "else if". You can use as many ~elif~ clauses as you need.
+
+#+caption: Chained Conditionals (if-elif-else)
+#+begin_example
+if x < y:
+    print('x is less than y')
+elif x > y:
+    print('x is greater than y')
+else:
+    print('x and y are equal')
+#+end_example
+
+It is also possible to nest conditional statements. Just remember to increase the indentation!
+
+#+caption: Nested conditionals
+#+begin_example
+if x == y:
+    print('x and y are equal')
+else:
+    if x < y:
+        print('x is less than y')
+    else:
+        print('x is greater than y')
+#+end_example
+
+You probably want to keep *nested conditionals* to a minimum.
+

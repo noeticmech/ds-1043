@@ -1,0 +1,103 @@
+#+title: Vocabulary Review
+#+author:
+#+date: 18 September 2024
+:EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+:END:
+
+- accumulator
+- algorithm
+- anonymous function
+- argument
+- assignment 
+- body
+- boolean expression
+- branch
+- bug 
+- chained conditional
+- comment
+- composition
+- compound statement
+- concatenate 
+- condition
+- conditional statement
+- counter
+- debugging
+- decrement
+- docstring
+- dot notation
+- element
+- empty string
+- evaluate
+- exception
+- execute
+- expression 
+- floating-point 
+- flow of execution
+- formal language 
+- frame
+- function
+- function call
+- function definition
+- function object
+- header
+- high-level language 
+- immutable
+- increment
+- index
+- infinite loop
+- initialization
+- integer 
+- interpreter 
+- invocation
+- item
+- iteration
+- keyword
+- local variable
+- logical operator
+- low-level language 
+- module
+- module object
+- natural language 
+- nested conditional
+- None
+- operand
+- operator 
+- optional argument
+- packing
+- parameter
+- parse 
+- portability 
+- prompt 
+- reassignment
+- reference
+- relational operator
+- return statement
+- return value
+- semantic error
+- semantics
+- sequence
+- stack diagram
+- stack trace
+- state diagram 
+- statement
+- string
+- syntax 
+- syntax error
+- token 
+- traceback
+- traverse
+- type 
+- unpacking
+- update
+- value 
+- variable 
+

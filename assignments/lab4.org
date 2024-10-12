@@ -1,0 +1,51 @@
+#+title: Lab 4: Basic Stats
+#+author:
+#+date: 17 September 2024
+ :EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+#+property: header-args :eval no-export
+:END:
+
+* Instructions
+You will submit two python files for this assignment, ~lab4.py~ and a ~test_lab4.py~ file containing test cases for each function contained in ~lab4.py~.  Once completed, your ~lab4.py~ should contain:
+- A docstring describing this file, similar to the following:
+   #+begin_example
+"""Lab 4
+Module implementing very basic statistics and probability functions.
+
+Completed by Student Name on 2024-09-17 for DS-1043"""
+ #+end_example
+- Any ~import~ statements
+- ~Number = int | float~, ~Sequence = list | tuple~, and any constant variable assignments
+- Function definitions to solve the exercises in this lab.
+- You do not need to include a "main" ~if~ block for this assignment.
+
+* Min-maxing
+Reimplement the basic functionality of Python's built-in ~min~ and ~max~ functions. These functions should take a single parameter, ~numbers~, whose value will be a sequence of numbers. Your functions should return the smallest and largest number in the given list, respectively. Return ~None~ if the sequence is empty. To accomodate these two different types of return value, your function header should look like:
+#+begin_src python
+  def min(numbers: Sequence) -> Number | None:
+#+end_src
+
+Obviously, you should not try to use Python's built-in ~min~ and ~max~ functions inside your own ~min~ and ~max~ functions.
+
+* Average
+Write two functions, ~sum~ and ~average~ which finds the sum and average of a sequence of numbers, respectively. As in the previous exercise, an empty input should return ~None~. You may not use the built-in ~sum~ function for this exercise, but you may use your own.
+
+* Median
+Write a function ~median~ that returns the statistical median of a sequence of numbers. The median of an odd-length list is the number in the middlemost number when the list is in sorted order. If the list has an even length, the median is the average of the two middlemost numbers when the list is in sorted order. As in the previous exercises, an empty input should return ~None~. You /may/ use Python's built-in ~sorted~ function.
+
+* Mode
+Write a function ~mode~ that returns the mode, or most frequently appearing number, of a sequence of numbers. As in the previous exercises, an empty input should return ~None~.
+
+* Dice Roller
+ Write a function ~roll_dice~, which takes two parameters, one for the number of dice to roll and another for the number of faces on each die. The function should return a tuple containing the results of the die rolls. You will want ot use ~random.randint~ function for this exercise. Add ~import random~ at the top of the file (after the docstring), and call ~random.seed()~ at the end of the file outside of any function definition. 

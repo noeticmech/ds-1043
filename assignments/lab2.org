@@ -1,0 +1,124 @@
+#+title: Lab 2: Programming Basics
+#+date:  3 September 2024
+:EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+#+property: header-args :eval no-export
+:END:
+
+* Instructions
+Create a single python file named ~lab2.py~. Each of the following exercises will include one or more function headers. Your job is to complete the function body[fn:revision2] so that it solves the problem presented in the exercise. Once completed, your ~lab2.py~ should contain:
+- A docstring describing this file, similar to the following:[fn:revision1]
+   #+begin_example
+"""Module implementing functions for...
+
+Completed by Student Name on 2024-09-03 for DS-1043"""
+ #+end_example
+- Any ~import~ statements
+- ~Number = int | float~, along with any constant variable assignments
+- Your completed function definitions, including a docstring for each function
+- You do not need to include a "main" ~if~ block for this assignment.
+
+[fn:revision2] i.e. replace ~pass~ with Python statements solving the problem. Note that you can use ~return~ within a function to return a specified value without continuing to execute the rest of the function. (Revisised 2024-08-31: note added for additional clarity)
+[fn:revision1] Revised 2024-08-31 to remove superfluous lines in docstring
+
+* Odd & Even
+
+#+begin_src python
+  def is_odd(number: Number) -> bool:
+      pass
+
+  
+  def is_even(number: Number) -> bool:
+      pass
+#+end_src
+
+The ~is_odd~ function should return ~True~ if ~number~ is odd and ~False~ if number is even. The
+~is_even~ function should return ~True~ if ~number~ is even and ~False~ if ~number~ is odd. Both
+functions should return ~False~ for numbers with fractional parts, such as 3.14 or -4.5. Zero is considered
+an even number.
+
+* Time
+
+#+begin_src python
+  def time_elapsed(timestamp: int) -> tuple[int, int, int, int]
+      pass
+#+end_src
+
+A fairly common way to represent a specific time is by counting the seconds elapsed since the "epoch".[fn:time] The function ~time_elapsed~ should return a /tuple/ containing the days, hours, minutes, and seconds that have elapsed between the time the function is called and the time represented by ~timestamp~.   
+
+[fn:time] The ~time~ module includes a function also called ~time~ that returns the current time in seconds since the Epoch. You should ether ~import time~ and use ~time.time()~ to check the time, or ~from time import time~ and use ~time()~ in your code. ~time.time~ can return fractional seconds information, so you may want to round it to the nearest second.
+
+* Space
+
+#+begin_src python
+  def area(length: Number, width: Number) -> Number:
+      pass
+
+  
+  def perimeter(length: Number, width: Number) -> Number:
+      pass
+
+
+  def volume(length: Number, width: Number, height: Number) -> Number:
+      pass
+
+
+  def surface_area(length: Number, width: Number, height: Number) -> Number:
+      pass
+#+end_src
+
+These functions should return the area, perimeter, volume, and surface area of a rectangular shape, respectively.[fn:dry] The formulas for calculating area, perimeter, volume, and surface area are based on the length (L), width (W), and height (H) of the shape:
+- area = L × W
+- perimeter = L + W + L + W
+- volume = L × W × H
+- surface area = (L × W × 2) + (L × H × 2) + (W × H × 2)
+
+[fn:dry] If it makes sense to do so, you can use functions you've already written to write additional functions. For example, another way of looking at volume is the area of one of the faces multiplied by the remaining dimension. There may also be ways to rewrite these formulas that make how the value is being calculated more clear.
+
+* Board Square Color
+
+#+begin_src python
+  def get_square_color(column: int, row: int) -> str:
+      pass
+#+end_src
+
+This function should return either ~'white'~ or ~'black'~ given the coordinates of a square on an alternating-color board (like a chess or checkers board). Coordinates range from 0 to 7, with the square (0, 0) being white.[fn:chesshint] If the coordinates are out of range, the function should return a blank string.
+
+[fn:chesshint] You might find a function you've already written to be helpful for this exercise.
+
+* Pretty Print
+
+#+begin_src python
+  def prettify_time(days: int, hours: int, minutes: int, seconds: int) -> str:
+      pass
+#+end_src
+
+Write a function that builds a string based on the output of ~time_elapsed~ which denotes the units of time in English. So a time elapsed of ~(11, 12, 13, 14)~ will result in a string ~'11 days, 12 hours, 13 minutes, 14 seconds'~. Values should be separated by commas, and if the value of any particular unit is zero, skipped.
+
+* Justification
+
+#+begin_src python
+  def right_justify(content: str, width: int) -> str:
+      pass
+
+  
+  def center_justify(content: str, width: int) -> str:
+      pass
+#+end_src
+
+The ~print~ function always prints starting from the left. These two functions should return strings that, respectively, right justify and center justify the provided string ~content~ relative to a column width of size ~width~ by padding it with leading spaces.
+
+* Sources :noexport:
+- /Odd & Even/, /Space/, and /Board Square Color/ adapted from /Python Programming Exercises, Gently Explained/ by Al Sweigart
+- /Justification/ adapted from /Think Python/, Second Edition, by Allen Downey
+- /Time/ and /Pretty Print/ created by Matthew Butler

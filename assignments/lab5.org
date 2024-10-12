@@ -1,0 +1,62 @@
+#+title: Lab 5: Turtles All The Way Down
+#+author:
+#+date:  24 September 2024
+:EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+#+property: header-args :eval no-export
+:END:
+
+* Instructions
+The submission for this assignment should be two files: a Python file named ~lab5.py~, and a plain text file named ~stack.txt~ containing the stack diagram you make in the first exercise.  Once completed, your ~lab5.py~ should contain:
+- A docstring describing this file
+- Any ~import~ statements
+- Any constant variable assignments
+- Function definitions to solve the exercises in this lab.
+- A main ~if~ block that runs through each exercise by creating a turtle and calling the various functions you create in this lab. This should look something like the following:
+  #+begin_src python
+    if __name__ == "__main__":
+        turt = turtle.Turtle()
+
+        # Calls to functions written for "Generalizing Functions"
+        # ...
+  #+end_src
+
+* Major General Turtle
+ - Write a function called ~square~ that takes a turtle, ~t~, as a parameter. It should use the turtle to draw a square. Test it out by adding a call to ~square~ in your "main" block and running the file. 
+ - Generalize ~square~ by adding another parameter ~length~. Modify the body so length of the sides is ~length~, and then modify the function call in your "main" to provide a second asrgument. Run the program again. Test your program with a range of values for length. 
+ - Make a copy of ~square~ and change the name to ~polygon~. Add another parameter named ~n~ and modify the body so it draws an n-sided regular polygon.[fn:polyhint] 
+ - Write a function called ~circle~ that takes a turtle, ~t~, and radius, ~r~, as parameters and that draws an approximate circle by calling polygon with an appropriate length and number of sides. Test your function with a range of values of ~r~.[fn:circlehint]
+ - Make a more general version of circle called arc that takes an additional parameter ~angle~, which determines what fraction of a circle to draw. ~angle~ is in units of degrees, so when ~angle==360~, arc should draw a complete circle.
+ - Create a stack diagram for the execution of the ~circle~ function. You can use the ~print_frame~ function in the attached python file.
+[fn:polyhint] Hint: The exterior angles of an n-sided regular polygon are 360/n degrees. 
+[fn:circlehint] Hint: Figure out the circumference of the circle and make sure that ~length * n~ = circumference. 
+
+* Turtle Flower
+Write an appropriately general set of functions that can draw flowers as in Figure [[fig:flowers]] and add a function call to your "main" block to draw a flower.
+
+#+caption: Example Flowers
+#+name: fig:flowers
+[[file:tnkp_0401.png]]
+
+* Turtle Pie
+Write an appropriately general set of functions that can draw shapes as in Figure [[fig:pie]] and add a function call to your "main" block to draw a pie.
+
+#+caption: Example Pies
+#+name: fig:pie
+[[file:tnkp_0402.png]]
+
+* Talking Turtles
+The letters of the alphabet can be constructed from a moderate number of basic elements, like vertical
+and horizontal lines and a few curves. Design an alphabet that can be drawn with a minimal number of
+basic elements and then write functions that draw the letters. You should write one function for each letter, with names draw_a, draw_b, etc. Write an additional function that takes a string and writes it on the screen. Add a function call to your "main" block to write your name.
+

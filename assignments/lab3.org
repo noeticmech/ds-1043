@@ -1,0 +1,69 @@
+#+title: Lab 3: "Oh no, not again"
+#+author:
+#+date:  10 September 2024
+:EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+#+property: header-args :eval no-export
+:END:
+
+* Instructions
+You will submit two python files for this assignment, ~lab3.py~ and the ~test_lab3.py~ file created for the first exercise.  Once completed, your ~lab3.py~ should contain:
+- A docstring describing this file, similar to the following:
+   #+begin_example
+"""Lab 3
+Module implementing functions for the Lab 2 exercises, as well as FizzBuzz and Ordinal Suffixes.
+
+Completed by Student Name on 2024-09-03 for DS-1043"""
+ #+end_example
+- Any ~import~ statements
+- ~Number = int | float~, along with any constant variable assignments
+- Your corrected code from Lab 2
+- Function definitions to solve the new exercises in this lab.[fn:steps]
+- You do not need to include a "main" ~if~ block for this assignment.
+
+[fn:steps] No prewritten function headers this time. Remember the steps for writing functions:
+  1. Identify what information the function will need and what information it will create, and identify the types needed to represent that information.
+
+  2. Write the function header, including the types of the incoming data (parameters) and return value. Write a one-line docstring that summarizes what the function does and describes the parameters if any. Complete the function "stub" by adding a ~return~ statement to the function body that returns a dummy value of the correct type or else set the function body as ~pass~.
+
+  3. Work through a few representative examples of what the function is supposed to do mentally or on paper. These can be used as test cases.
+
+  4. Replace the "stub" function body used before with the actual steps required to perform the operation of the function in valid Python code.
+
+  5. Write a test for the new function using your examples.
+
+* Clean Up on Aisle 2
+
+Copy your code from Lab 2 into a fresh file for Lab 3. Use the tools discussed in the lab session to reformat your code. You may have to manually correct some issues. Create tests for each function using pytest in a file named ~test_lab3.py~.[fn:import] Re-read the problem statements from Lab 2 and write ~assert~ statements that test significant examples. If you wrote tests for Lab 2, you can reuse some or all of them here as well. Using the tests, the "problems" panel in PyCharm, and feedback from Lab 2, correct your code, and remember to reformat afterwards if necessary.
+
+[fn:import] Note that you can use ~from lab3 import *~ at the top of your ~test_lab3.py~ to import everything defined in ~lab3.py~ 
+
+* FizzBuzz
+
+Write a function ~fizz_buzz~ with a single integer parameter named ~up_to~. that generates a string containing the following for each number from 1 up to and including ~up_to~:
+- ~'Fizz'~ if the number is only divisible by 3.
+- ~'Buzz'~ if the number is only divisible by 5.
+- ~'FizzBuzz'~ if the number is divisible by 3 and 5.
+- The number itself if the number is neither divisible by 3 nor 5.
+Each value in the string― ~'Fizz'~, ~'Buzz'~, ~'FizzBuzz'~, or number―should be separated by a space.
+
+Add a test to your ~test_lab3.py~ for this function, and make sure that the submitted code is stylistically correct as well as functionally correct.
+
+* Ordinal Suffixes
+
+Ordinal numerals have suffixes such as the "--th" in "30th" or "--nd" in "2nd." Write a function ~ordinal_suffix~ with an integer parameter named ~number~ and returns a string of the number with its ordinal suffix.
+
+Add a test to your ~test_lab3.py~ for this function, and make sure that the submitted code is stylistically correct as well as functionally correct.
+
+* Sources :noexport:
+- /FizzBuzz/ and /Ordinal Suffixes/ both adapted from /Python Programming Exercises, Gently Explained/ by Al Sweigart

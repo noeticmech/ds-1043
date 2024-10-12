@@ -1,0 +1,124 @@
+#+title: Iteration
+#+author: Dr. Matthew Butler
+:export:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Noto Sans Mono}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+:end:
+
+#+begin_quote
+It’s no use going back to yesterday, because I was a different person then.
+
+― Lewis Carroll
+#+end_quote
+
+Iteration is the process of executing a set of instructions repeatedly in a sequential manner. Python has two compond statements for iteration: the ~while~ statment and the ~for~ statement. These statements are colloquially called "loops" and the process of iteration "looping".
+
+* The ~while~ Statement
+The basic syntax of a ~while~ statment is as follows:
+#+begin_src python
+  while boolean_expression:
+      code_block
+#+end_src
+
+Where ~boolean_expression~ is any expression that evaluates to ~True~ or ~False~, and ~code_block~ is the set of statements you wish to execute multiple times.
+
+When using a ~while~ loop, we will often use a variable, called a *counter*, to keep track of our iteration. It is common to use the variable names ~i~, ~j~, ~k~, and ~n~ as they are used in mathematics. Alternatively, ~index~ is another good choice, especially if the variable will be used to access values stored in a data structure that allows indexing (i.e. a *sequence*).
+
+Each iteration of our loop we will want to increase or decrease the value of this variable. This is called *incrementing* or *decrementing* the variable, respectively.
+
+Sometimes we will use a loop to build up a variable. A variable in this role is sometimes called an *accumulator*.
+
+* The ~for~ Statement
+A ~for~ statement looks like this:
+#+begin_src python
+  for variables in iterable:
+      code_block
+#+end_src
+
+Where ~variables~ is one or more (if unpacking a tuple) variables that will be assigned to a different value produced from ~iterable_expression~ each time the statement loops. The ~iterable_expression~ can be any expression which evaluates to an ~iterable~.
+
+If your iterable is something simple like a list or a tuple, a ~for~ loop is essentially equivalent to a ~while~ loop:
+#+begin_src python
+  for variable in simple_iterable:
+      # do something with variable
+
+  # is equivalent to
+
+  index = 0
+  while index < len(simple_iterable):
+      variable = simple_iterable[index]
+      # do something with variable
+      index = index + 1
+#+end_src
+
+Where ~index~, ~variable~, and ~simple_iterable~ are variable names chosen for clarity.
+
+* Flow Control
+
+Sometimes we will want to stop execution of the loop based on some condition. Python provides two flow control statements for this: ~break~ and ~continue~. If we wish to stop execution of the body of our loop and move to the next iteration of it, we use the ~continue~ statement. If we wish to stop execution of the loop entirely, we use the ~break~ statement.
+
+* Which Loop?
+
+Idiomatic Python code prefers ~for~ loops over ~while~ loops. Besides often being easier to read, using ~for~ should eliminate most indexing errors (i.e. trying to access values that aren't there, like ~some_list[len(some_list)]~) and reduce the likelihood of infinite loops.
+
+Even when you need access to an index in your loop, it is considered better form to use a ~for~ loop like the following instead of a ~while~ loop:
+#+begin_src python
+  for index, variable in enumerate(simple_iterable):
+      # do something with index and variable
+#+end_src
+
+There are still situations in which a ~while~ loop is more appropriate. Situations where iteration is appropriate, but there is no ~iterable~ object to iterate over is the primary example. Another common example is any time some instructions are needed to setup up the loop before the loop conditional is checked, but also needs to be run every iteration. Rather than duplicating the setup code, we move the point at which the loop conditional is checked by using our flow control statements:
+
+#+begin_src python
+while True:
+    # setup code
+    if not actual_loop_conditional:
+        break
+    # loop body
+#+end_src
+
+Where ~actual_loop_conditional~ is the boolean expression that would normally follow ~while~. Since ~True~ is always, well, true, this loop relies on the ~if not ~... ~break~ to actually terminate.
+
+* An Example: Newton's Method
+
+Newton's method is an example of an *algorithm*, that is a set of discrete and mechanical steps that perform some task or computation. It's also an iterative algorithm, in that to perform it, some steps will be repeated until we get an appropriate result. The primary insight of the algorithm is that for any estimate, ~a~, of the square root of a number, ~x~, we can get a better estimate by calculating $\frac{x + \frac{a}{x}}{2}$. This calculation can be repeated until there is no difference between the results of two subsequent iterations.
+
+To implement this in Python, we're going to need a loop. There's no set of data that we are iterating over, so a ~while~ loop is probably the most appropriate. We will stop when the results of two iterations are the same, which means that we will need to have two values to compare for the loop conditional, so we should use the ~while True ... if not ... break~ pattern. A first draft may look something like this:
+
+#+begin_src python
+  def square_root(a: float) -> float:
+      x = y = a
+      while True:
+          y = (x + a/x) / 2
+          if y == x:
+              break
+          x = y
+      return y
+#+end_src
+
+There's one glaring issue here though... floating-point arithmatic is only approximate. We might arrive at the best solution we can calculate and, because of approximation, not exit the loop. There are a couple of ways we can fix this. One would be to have some measure of tolerance and compare the absolute value of the difference of ~x~ and ~y~. Another would be to use the ~isclose~ function from the ~math~ module.
+
+Another common concern with iterative algorithms such as this is that there may be significantly diminishing returns after several iterations. If we wanted to add a maximum number of iterations to our Python implementation of Newton's method, it could look something like this:
+
+#+begin_src python
+  def square_root(a: float, max_iterations=50) -> float:
+      x = y = a
+      iterations = 0
+      while iterations < max_iterations:
+          y = (x + a/x) / 2
+          if y == x:
+              break
+          x = y
+      return y
+#+end_src
+
+This allows the caller of the function to either specify a maximum number of iterations or rely on the default value.

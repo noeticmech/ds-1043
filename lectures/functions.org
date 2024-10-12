@@ -1,0 +1,111 @@
+#+title: Functions in Python
+#+date: 4 September 2024
+#+author: Dr. Matthew Butler
+#+startup: show2levels
+:EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+:END:
+
+* Defining Functions
+- The standard way to define a function is with a compound statement starting with the keyword ~def~.
+- Components of the function header:
+  - name of the function
+  - parameters
+    - positional parameters
+    - keyword parameters
+  - type hints for parameters and return value /(optional)/
+- Components of the function body:
+  - docstring
+  - function logic
+    - may use the values *passed* to the function by the *parameter* names
+    - may *return* execution to wherever the function was *called* using ~return~.
+- Functions can return a value or ~None~, which is a special value for no value.
+  - Functions that return a useful value are called *fruitful functions*
+  - Functions that only ever return ~None~ are called *void functions*
+- An example
+  #+begin_src python
+    Number = int | float
+    def f(x: Number, a: Number = 0.5, b: Number = 2) -> Number:
+        """Returns the y value for a basic linear equation, defaulting to a = 0.5 and b = 2"""
+        return a * x + b
+  #+end_src
+
+* Anonymous Functions
+- Occasionally, we will want to define a trivial function for some specific situation where we don't really need to name it.
+- We can create such a function with a ~lambda~ expression: ~lambda [parameters] : [return value]~
+- This creates a *function object*. We could even give it a name if we wanted, using an assignment statement.
+- The most common use of anonymous functions is to pass them as an argument to another function
+#+begin_src python
+  some_numbers = (1,2,3,4,5,6,7,8)
+  evens_and_odds = sorted(some_numbers, key=lambda x: x % 2)
+#+end_src
+
+* Function Calls
+- We started programming with a function call: ~print('hello world')~
+- The value passed to the function is called an *argument*.
+- When a function is called, a block of memory called a *frame* is allocated for the names used in the function.
+- We can represent the execution of functions using a *stack diagram*, which shows each function frame in memory and their relative order of execution (First In, Last Out).
+#+begin_example
+  f(5)
+  f(5)---------
+  x -> 5
+  a -> 0.5
+  b -> 2
+  ------------
+#+end_example
+- Functions (and expressions and statements in general) can be "chained" together. We call this *composition*.
+  #+begin_example
+  f(f(3))
+  f(3)---------
+  x -> 3
+  a -> 0.5
+  b -> 2
+  ------------
+  f(f(3))---------
+  x -> f(3)
+  a -> 0.5
+  b -> 2
+  ------------
+  #+end_example
+
+* Scope, Namespaces, and Assignment
+- *Scope* determines the visibility of a given name at a particular point in the structure of the program.
+- Names assigned inside a function (including parameters) have *local scope*, meaning that they are only visible within the instance of that function during execution.
+- Names assigned in a module/program outside of functions are have *global scope*, and can be used throughout that module or program.
+- Python uses *namespaces* to manage names and prevent conflicts. For example, modules may have functions or variable with the same name as other modules. To access these names, we use *dot notation* to string a set of names together.
+- It is important to understand that assignment does not copy values, but rather makes a name refer to a value.
+- Assigning a name to a new value does not effect other names that were assigned to that same value.
+- Values can be *mutable* or *immutable*.
+  
+* Terminology
+- function
+- function definition
+- function object
+- header
+- body
+- parameter
+- function call
+- argument
+- local variable
+- return value
+- fruitful function
+- void function
+- ~None~
+- modules
+- import statement
+- module object
+- dot notation
+- composition
+- flow of execution
+- stack diagram
+- frame
+- traceback or stack trace
+

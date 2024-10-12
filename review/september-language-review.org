@@ -1,0 +1,65 @@
+#+title: Language Review
+#+author:
+#+date: 11 September 2024
+:EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+:END:
+
+* Types
+ - ~int~ (immutable)
+ - ~str~ (immutable, iterable, indexes)
+ - ~float~ (immutable)
+ - ~bool~ (immutable)
+ - ~list~ (mutable, iterable, indexes)
+ - ~tuple~ (immutable, iterable, indexes)
+ - "function" 
+ - ~Nonetype~ (immutable)
+ - ~dict~ (mutable, iterable, keys/values)
+* Functions
+ - ~print~ (prints to ~stdout~)
+ - ~len~ (length of whatever)
+ - "constructors" ~str()~, ~int()~, etc (type cast or create new of whatever type)
+ - ~enumerate~ (creates tuples that include an index and the value of items in an iterable)
+ - ~zip~ (combines two iterables into one iterable of tuples that pair items from the input)
+ - ~range~ (provides an iterable that contains integers from ~start~ up to but not including ~stop~ in ~step~)
+ - ~type~ (returns the type)
+ - ~round~ (rounds)
+ - ~abs~ (absolute value)
+ - ~help~ (provides documentation)
+ - ~filter~ (removes items from an iterable that doesn't pass a boolean test)
+ - ~map~ (applies a function to all items of an iterable)
+ - ~' '.join(seq)~ (joins the elements of an iterable ~seq~ into a single string separated by, in this case ~' '~)
+ - ~reversed~ (reverses an iterable)
+ - ~sorted~ (sorts an iterable)
+ - ~min~ (returns the smallest argument)
+ - ~max~ (returns the largest argument)
+ - ~sum~ (sums all the arguments)
+* Operators
+** Numeric
+- ~+~
+- -
+- ~*~ (multiplication)
+- ~*​*~ (exponentiation)
+- ~/~ (float division)
+- ~/​/~ (integer or floor division)
+- ~%~ (modulus)
+** Boolean
+- ~=​=~, ~!​=~, ~>​=~, ~<​=~, ~<~, ~>~,
+- ~and~, ~or~, ~not~, ~in~, ~is~
+** Miscellaneous
+- ~.~ (accessing a function or value that belongs to an object, like a module)
+- ~[ ]~ (used to access values stored in a larger data structure)
+* Keywords
+- ~if~, ~else~, ~elif~ (conditionals)
+- ~while~, ~for~, ~break~, ~continue~ (loops/iteration)
+- ~def~, ~return~, ~pass~ (functions)
+- ~assert~ (testing)
+- ~import~, ~from~, ~as~ (including other files and renaming objects)

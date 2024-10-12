@@ -1,0 +1,105 @@
+#+title: Functions in Python: Addendum
+#+date: 4 September 2024
+#+author: Dr. Matthew Butler
+#+startup: show2levels
+:EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+:END:
+
+* Packing Tuples
+
+It is fairly common to want to return multiple values from a single function call. One of the most convenient ways to do this is via tuples. In it's simplest form,  simply use ~return~ followed by a comma-separated list of the variables you would like to return. Python will create a tuple from these values and return it.
+
+#+caption: Packing Tuple Example
+#+begin_src python
+  >>> def some_function() -> tuple[int, int]:
+  ...     # the logic here isn't important for the example
+  ...     x = 1
+  ...     y = 2
+  ...     return x, y
+  ...
+  >>> some_function()
+  (1, 2)
+#+end_src
+
+* Unpacking Tuples
+
+Tuples can be "unpacked" to assign the values inside to individual variable names. When performing assignments, simply use a comma-separated list of names on the left-hand side of the assignment and a tuple on the right-hand side. For unpacking tuples as arguments in a function call, use an asterisk before the tuple (or function returning a tuple). You can also use the asterisk to "pop" off an element from the beginning or end of a tuple.
+
+#+caption: Unpacking Tuple Examples
+#+begin_src python
+  >>> x, y = some_function()
+  >>> x
+  1
+  >>> y
+  2
+
+  >>> def some_other_function(a: int, b: int) -> int:
+  ...     return x * y
+
+  # Using the tuple output of some_function as the arguments of some_other_function
+  >>> some_other_function(*some_function())
+  2
+
+  # Popping the first element of the tuple using a starred expression
+  >>> def yet_another_function() -> tuple[int, int, int]:
+  ...    return ('a', 'b', 'c')
+  ...
+  >>> a, *rest = yet_another_function()
+  >>> a
+  'a'
+  >>> rest
+  ['b', 'c']
+#+end_src
+
+* Type Hints
+
+When writing functions, it is important to keep the kinds of information and data we are using in mind. Type hinting is a good way to document the acceptable types for arguments and results, and integrate with other tools such as ~mypy~. PyCharm has some built-in support for type hints, but you can also install ~mypy~ via ~pip~ inside PyCharm and the mypy plugin for more type support.
+
+#+caption: These are the same functions
+#+begin_src python
+  def some_function(a, b):
+    return a, b
+
+  def some_function(a: int, b: int) -> tuple[int, int]:
+    return a, b
+#+end_src
+
+ For most things, you only need to specify a single type (i.e. ~int~, ~float~, ~str~, etc.), but for sequences or other more complex types that contain multiple values within it, you can also specify the type of those values, as seen above.
+
+ You can type hint assignments too.
+
+ #+caption: Adding type hints to an assignment statement
+ #+begin_src python
+  x = 5
+  x: int = 5
+ #+end_src
+
+ The type of the return value of a function is specified by ~-> SomeType~ between the parameter list and ~:~. ~None~ should be specified for void functions.
+
+ #+caption: A type-hinted void function
+ #+begin_src python
+  def print_twice(content):
+      print(content*2)
+
+  def print_twice(content: str) -> None:
+      print(content*2)
+ #+end_src
+
+ If you want to create type hints for a function that should be able to handle multiple kinds of types, you can create a variable that combines multiple type hints.
+
+ #+caption: Type hint variables
+ #+begin_src python
+   Number = int | float
+   Sequence = tuple | list
+ #+end_src
+
+ Type hints can get much more involved, but these should suffice for now.

@@ -1,0 +1,42 @@
+#+title: Designing Functions
+#+date: 6 September 2024
+#+author: Dr. Matthew Butler
+#+startup: show2levels
+:EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+:END:
+
+#+begin_quote
+This is the Unix philosophy: Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.
+
+-- Doug McIlroy, head of the Bell Labs Computing Sciences Research Center
+#+end_quote
+
+* Design Steps
+  1. Identify what information the function will need and what information it will create, and identify the types needed to represent that information.
+
+  2. Write the function header, including the types of the incoming data (parameters) and return value. Write a one-line docstring that summarizes what the function does and describes the parameters if any. Complete the function "stub" by adding a ~return~ statement to the function body that returns a dummy value of the correct type or else set the function body as ~pass~.
+
+  3. Work through a few representative examples of what the function is supposed to do mentally or on paper. These can be used as test cases.
+
+  4. Replace the "stub" function body used before with the actual steps required to perform the operation of the function in valid Python code.
+
+  5. Write a test for the new function using your examples.
+
+* Design Principles
+- Each function should have exactly one job. That job should be identifiable with a short name and characterizable in a single line of text. Functions that perform multiple jobs in sequence should be divided into multiple functions.
+- Functions should be designed to work together with other functions.
+- Functions should perform their task without "side effects". That is, they should be self-contained and touch outside variables and interfaces as little as possible.
+- Functions should use common interfaces and structures to maximize their ability to be used in other, often unforeseen, situations than the specific situation it was designed for.
+- Repeated logic is a good candidate for abstraction and centralization into a general function.
+- Functions should be written as generally as possible given current time constraints. Code that works now for this situation is most important, but if a little bit of effort means it can be used for future situations, it may be worth the investment.
+
+
