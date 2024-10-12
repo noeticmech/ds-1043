@@ -1,0 +1,6 @@
+#+title: DS-1043 Programming in Python (for Data Science)
+#+date: Fall 2024
+
+This repository contains course materials, including example lab solutions, for the University of Tulsa's DS-1043 course.
+
+Data Science 1043 is an introduction to the field of computer science using the Python programming language. Topics include iteration, recursion, basic data structures, sorting and searching, analysis of algorithms, and an introduction to object-oriented programming. Applications connecting topics to other disciplines will be included. Students will gain a basic understanding of developing (designing, coding, and debugging) medium-sized programs in Python and a basic understanding of how one analyzes programs for correctness and efficiency. No previous computer programming experience in any language is assumed.
