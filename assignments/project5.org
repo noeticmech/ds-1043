@@ -1,0 +1,43 @@
+#+title: Project 5: A Library of One's Own
+#+author:
+#+date: Due: 9 December 2024
+:export:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Noto Sans Mono}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+:end:
+
+* Instructions
+
+You should begin to curate a set of "generally useful" functions that you can turn to in future projects. A generally useful function is one that is general enough to be useful in a broad set of contexts, and useful in that performs some common task that isn't otherwise covered by readily available alternatives, such as Python's built-in functions or core[fn:core] standard library modules. They should also not be trivial, i.e. they should not be reducable to a single simple operation, even if said operation is common and useful.
+
+For each function, you will need to produce the following:
+- A clean, and well-styled function definition, including docstring and type hints. The function should handle or make use of exceptions as needed.
+- A test function that check not only common inputs, but also inputs that will potentially cause errors.
+- A few paragraph explanation of the function written in Markdown, including:
+  - A description of the function in terms of algorithm, pre-conditions, post-conditions, invariants, and any assumptions made.
+  - A short analysis of the complexity of the function in terms of both processing time and memory space and any trade-offs made.
+  - A summary of typical use cases.
+    
+Some of these things may not entirely make sense at this point in time. You will likely need to revise your library and documentation a few times throughout the semester to incorporate new ideas. It may make sense to keep your explanation as an outline or series of notes and flesh it out later in the semester.
+
+You will need to submit at least five functions. The points for this project will be allocated as follows:
+
+| % of Points | Component                 |
+|-------------+---------------------------|
+|          25 | Function Definition       |
+|          25 | Function Test             |
+|          25 | Description and Use Cases |
+|          25 | Analysis of Algorithm     |
+
+ You should submit a link to a GitHub repository with the following files: a python file containing your library, a python file containing your tests, and up to as many Markdown files as you have functions. You may combine all of the Markdown descriptions into one file called `readme.md' if you wish, otherwise they should be in a subfolder named `docs'. 
+
+[fn:core] There's a lot in the Python Standard Library. You should perform a "best effort" search of the documentation before adding something to your library, but you will not be docked points for incidently duplicating functionality found outside the modules we use in class.
