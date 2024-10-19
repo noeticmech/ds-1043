@@ -9,7 +9,12 @@ def test_min():
     assert lab4.min([3, 2, 1]) == 1
     assert lab4.min([28, 25, 42, 2, 28]) == 2
     assert lab4.min([1]) == 1
-    assert lab4.min([]) is None
+    try:
+        lab4.min([])
+    except ValueError:
+        assert True
+    else:
+        assert False
 
 
 def test_max():
@@ -17,7 +22,13 @@ def test_max():
     assert lab4.max([3, 2, 1]) == 3
     assert lab4.max([28, 25, 42, 2, 28]) == 42
     assert lab4.max([1]) == 1
-    assert lab4.max([]) is None
+    try:
+        lab4.max([])
+    except ValueError:
+        assert True
+    else:
+        assert False
+
 
 
 def test_average():
@@ -32,7 +43,12 @@ def test_average():
 
 
 def test_median():
-    assert lab4.median([]) is None
+    try:
+        lab4.median([])
+    except ValueError:
+        assert True
+    else:
+        assert False
     assert lab4.median([1, 2, 3]) == 2
     assert lab4.median([3, 7, 10, 4, 1, 9, 6, 5, 2, 8]) == 5.5
     assert lab4.median([3, 7, 10, 4, 1, 9, 6, 2, 8]) == 6
@@ -43,13 +59,18 @@ def test_median():
 
 
 def test_mode():
-    assert lab4.mode([]) is None
-    assert lab4.mode([1, 2, 3, 4, 4]) == 4
-    assert lab4.mode([1, 1, 2, 3, 4]) == 1
+    try:
+        lab4.mode([])
+    except ValueError:
+        assert True
+    else:
+        assert False
+    assert lab4.mode([1, 2, 3, 4, 4]) == (4,)
+    assert lab4.mode([1, 1, 2, 3, 4]) == (1,)
     testData = [1, 2, 3, 4, 4]
     for i in range(1000):
         random.shuffle(testData)
-        assert lab4.mode(testData) == 4
+        assert lab4.mode(testData) == (4,)
 
         
 def test_roll_dice():

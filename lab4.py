@@ -3,11 +3,14 @@ Module implementing very basic statistics and probability functions.
 
 Completed by Matthew Butler on 2024-09-30 for DS-1043"""
 
+import random
+
 Number = int | float
 Sequence = list[int] | list[float] | tuple[int] | tuple[float]
 
 
 def min(numbers: Sequence) -> Number:
+    """Finds the item in numbers with the lowest value"""
     if len(numbers) < 1:
         raise ValueError("min() argument is empty")
     min_value = numbers[0]
@@ -18,6 +21,7 @@ def min(numbers: Sequence) -> Number:
 
 
 def max(numbers: Sequence) -> Number:
+    """Finds the item in numbers with the highest value"""
     if len(numbers) < 1:
         raise ValueError
     max_value = numbers[0]
@@ -28,6 +32,7 @@ def max(numbers: Sequence) -> Number:
 
 
 def sum(numbers: Sequence) -> Number:
+    """Sums the items in numbers"""
     if len(numbers) < 1:
         raise ValueError
     answer: Number = 0
@@ -37,6 +42,7 @@ def sum(numbers: Sequence) -> Number:
 
 
 def average(numbers: Sequence) -> Number:
+    """Finds the averate of numbers"""
     if len(numbers) < 1:
         raise ValueError
     total = sum(numbers)
@@ -65,11 +71,18 @@ def mode(numbers: Sequence) -> tuple[Number, ...]:
             counter[number] = counter[number] + 1
         else:
             counter[number] = 1
-    sorted_numbers = sorted(numbers, key=lambda x: counter[x])
+    sorted_numbers = sorted(counter.keys(), key=lambda x: counter[x], reverse=True)
     mode_count = counter[sorted_numbers[0]]
-    mode = ()
+    mode: tuple = ()
     for number in sorted_numbers:
         if counter[number] < mode_count:
             break
         mode = mode + (number,)
     return mode
+
+def roll_dice(number: int, faces: int) -> tuple[int,...]:
+    """Returns a tuple representing a dice roll"""
+    rolls: tuple[int,...] = ()
+    for die in range(number):
+        rolls = rolls + (random.randint(1,faces),)
+    return rolls
