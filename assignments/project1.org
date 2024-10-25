@@ -1,0 +1,46 @@
+#+title: Project 1: In Summary
+#+author:
+#+date: Due: 8 November 2024
+:export:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Noto Sans Mono}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+:end:
+
+* Instructions
+
+This project corresponds with *Lab 8: In Summary*.
+
+Writing is an oft-neglected tool for clarifying our understanding of algorithms and programming. You are encouraged to outline or even sketch out algorithms and data structures as you program. For this assignment, write a short article using Markdown syntax that introduces and describes the algorithm used in Lab 8 and your implementation of it. You should also include any adjustments or experiments you tried, as well as ideas you may have had but weren't able to implement.
+
+The general structure of your article should be:
+- Introduction
+- Algorithm - A brief explanation of tf-idf
+- Implementation - A few paragraphs explaining how you implemented tf-idf, especially the ~calculate_tf~, ~calculate_idf~, and ~score_sentences~ functions. This should include a concise discussion of the data structures (lists, dictionaries, etc) used, including your understanding of why those particular structures were used. You should also talk about any adjustments (if any) you may have made to the code given in the lab files, e.g. to the inclusion function or ~clean_text~ function.
+- Results - A brief discussion or demonstration of your program working on a sample text. Given the nature of the lab assignment, there will likely not be quantitative results as such. Give a qualitative assessment of the summarization results.
+- ``Future Work'' - Include at least a few sentences describing potential ways to expand or assess the program that you were not able to do for the lab assignment. This can be quite speculative, but should be at least somewhat detailed (e.g. do not simply say more inclusion functions could be included, but rather what sort of inclusion functions you might additionally implement).
+- Conclusion
+
+#+begin_margintable
+| % of Points | Component                           |
+|-------------+-------------------------------------|
+|          25 | Algorithm Explanation               |
+|          25 | Implementation Narrative            |
+|          25 | Results/Example Walkthrough         |
+|          25 | Document Structure and Presentation |
+#+end_margintable
+
+The total article only needs to be six to twelve paragraphs long. Citations should be included simply as a footnote. For a basic and openly available description of TF IDF, you may wish to cite
+#+begin_quote
+Rajaraman, A.; Ullman, J.D. (2011). "Data Mining" (PDF). Mining of Massive Datasets. pp. 1–17. doi:10.1017/CBO9781139058452.002. ISBN 978-1-139-05845-2.
+#+end_quote
+
+

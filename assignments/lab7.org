@@ -33,9 +33,9 @@ Write a pair of functions that will pretty-print a list of lists or dictionaries
 - if ~data~ is a list of dictionaries, ~header~ should either be a list of valid keys for the dictionaries in ~data~ or a dictionary where the keys are shared with ~data~, and the values in ~header~ are strings to be displayed as the header. If some items in ~data~ do not contain the keys given by ~header~, the field in the corresponding rows in the table should be blank.
 - You may, of course, write additional functions to increase the readability of your code. The following code snippet represents an interface that can be used by other functions or yourself while exploring data in the Python REPL. You should amend these function headers with appropriate type hints.
 #+begin_src python
-  import os
+  import shutil
 
-  def view_table(header, data, max_width=(os.get_terminal_size()).columns, file=None):
+  def view_table(header, data, max_width=(shutil.get_terminal_size()).columns, file=None):
       # print the table to the console
       # this function should call `create_table`
       # pass the file keyword parameter to the print function
@@ -57,7 +57,7 @@ Write a pair of functions that will pretty-print a list of lists or dictionaries
 
 * Zipper Merge
 
-Write a function ~merge_sorted_lists~ that merges any number of previously sorted lists. Do not use ~sorted~ or the ~sort~ method for lists in your solution.
+Write a function ~merge_sorted_lists~ that merges any number of previously sorted lists into one sorted list. Do not use ~sorted~ or the ~sort~ method for lists in your solution. You can assume that the type of data in each list is the same.
 
 * Caesar Caesar!
 
