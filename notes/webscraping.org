@@ -1,0 +1,177 @@
+#+title: Web Scraping
+#+author: Dr. Matthew Butler
+#+date: 4 November 2024
+:export:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+:end:
+
+*Web Scraping* is the process of programmatically extracting data from a web interface designed for human interaction. Unfortunately, web scraping is hard to generalize and will usually require creating a bespoke scraper program for each platform. This requires digging into a site's sources to see how its data are organized. Python has a number of popular libraries[fn:libs]  available that are useful for web scraping, but the ones we are going to use for this class are ~requests~ for making http requests, and ~BeautifulSoup~ for working with html documents.
+
+#+begin_src python
+  import requests
+  from bs4 import BeautifulSoup as Soup
+#+end_src
+
+[fn:libs] Others include ~scrapy~ and ~selenium~ (a web application testing library that can drive a normal desktop browser).
+
+* HTML
+*HTML* (HyperText Markup Language) is the primary *markup language* used for websites. Markup languages add formatting and/or structure to (generally) textual data for the purposes of display or processing. You only really need a basic familiarity with HTML to get started webscraping. The basic mechanism HTML uses for adding structure and formatting to documents is the "tag". A tag consists of some keyword and optional attributes surrounded by angle brackets, i.e. "<" and ">". Many tags have "open" and "close" variants, with the close variant starting with "</". A tag and its contents is commonly referred to as an "element".
+- HTML documents have a head and body section, denoted by tags of the same name. The head section contains a title for the document, various metadata, scripts, stylesheets, etc, which pertain to the document as a whole. The body contains the actual content of the document
+- Markdown was conceived as a more human-friendly way to format plain text documents in a way that could easily be translated into HTML for web publishing. As a result, there is a close relationship between Markdown formatting and HTML elements. If you look at [[http://markdownguide.org]], you will find most of the equivalent HTML used to render the markdown element.
+- We will mostly be focused on links and tables. We've already looked at tables. Links use the "<a>" tag (for anchor), and has an attribute "href" for the actual http reference or url.
+
+* HTTP
+The *HyperText Transport Protocol* is the network protocol used to retreive html documents and associated files from a server. We won't get into the details of the protocol, but you need to be aware of two concepts:
+1. Request methods. The most common request type is "GET", but there are several others. "POST" is used to send information to a server (for example, form data).
+2. Response status codes. If everything is correct, you will get a "200" status code. Status codes in the 300 range indicate some sort of redirection. Status codes in the 400 range indicate an apparent client error (including 404 file not found). Status codes in the 500 range indicate a server error.
+The wikipedia article can be a helpful reference: https://en.wikipedia.org/wiki/HTTP
+
+* Avoiding Getting Blocked
+** Rate Limiting
+Many websites have some level of protection against automated access. This is because, at the very least, because automated access may tie up most of the resources available to the website's server, effectively denying access to other users. It is always a good idea to build some way to rate-limit your own requests, or the website you are scraping may do it for you, if not outright block the IP you are using.
+
+#+begin_src python 
+import time
+import random
+
+DEFAULT_SLEEP = 2.0
+SIGMA = 0.5
+
+HEADERS = {}
+
+def get(url: str) -> requests.Response:
+    time.sleep(random.gauss(DEFAULT_SLEEP, SIGMA))
+    return requests.get(url, headers=HEADERS)
+#+end_src
+
+** User Agent
+The User Agent http header identifies the software being used to make the http request. It can be a good idea to set this to a value used by an actual browser.
+
+#+begin_src python
+# User Agent from Chrome Browser on Win 10/11
+HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'}
+#+end_src
+
+** Proxy Servers
+It can also be useful to make use of a proxy server service. A proxy server allows you to direct webtraffic from your computer through another computer on the Internet. Proxy server services exist that allow you to use multiple IP addresses for making your web scrapping requests. This is a good way to avoid having your one and only IP address blocked, but does cost money.
+
+* Using ~requests~ and ~BeautifulSoup~
+We will use ~requests~ to handle HTTP requests and ~BeautifulSoup~ to interact with HTML documents we have requested. To request an HTML document over HTTP, we can simply:
+
+#+begin_src python
+  response = requests.get('http://books.toscrape.com')
+  if response.ok:
+      document = Soup(response.content, 'html.parser')
+  else:
+      # Handle the error appropriately, if able
+#+end_src
+
+~document~ is now a ~BeautifulSoup~ object that allows us to easily access the information in the retreived document. ~BeautifulSoup~ provides data members to access parts of the document (like ~document.title~ for the title), and  functions to find HTML elements by "name" (e.g. 'a' for links, or 'table' for tables). Once we have an element assigned to a variable, we can access attributes using a dictionary-like interface. Meanwhile, the text content of a tag can be accessed through its ~string~ member.
+
+#+begin_src python
+  # Get a list of all of the links in the document
+  links = document.find_all('a')
+  for link in links:
+      print(link['href']) # Print the path of the link
+      print(link.string)  # Print the visible text for the link
+#+end_src
+
+Full documentation for these modules can be found at https://requests.readthedocs.io/en/latest/ and https://www.crummy.com/software/BeautifulSoup/bs4/doc/.
+
+* Keeping Track of Progress
+We do not want to make more requests than necessary while scraping a website, so it is a good idea to take some steps to ensure you are not downloading the same html file multiple times simply because it is linked in multiple places on the website.
+
+Additionally, it is a good idea to regularly save progress state in just in case we need to interrupt the process for whatever reason. Scraping a website can take a fair amount of time, and there are any number of reasons we may need to pause and resume later.
+
+A natural fit for both of these goals would be to keep our collected data in a dictionary, with a url or path string as the keys, and a data structure containing our extracted data as the values. Some care needs to be taken to ensure that there is only one possible key per file, since relative link paths may result in multiple ways to represent the same file path. This dictionary can then be written to storage periodically. It may also be a good idea to handle the ~KeyboardInterrupt~ exception to save state to storage as well.
+
+* Putting It All Together
+Taking all of the above, we can built a skeleton for our web scraping program.
+
+#+begin_src python :tangle ../assignments/laba.py
+  """ Lab A: Web Scraping
+
+  Crawls the website http://books.toscrape.com and creates a spreadsheet of books.
+  """
+  import time
+  import random
+  import requests
+  import json
+  import csv
+  from urllib.parse import urljoin
+  from bs4 import BeautifulSoup as Soup
+
+  # User Agent from Chrome Browser on Win 10/11
+  HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'}
+
+  DEFAULT_SLEEP = 3.0 # These may need tuning
+  SIGMA = 1.0
+
+  DOMAIN = 'http://books.toscrape.com' # Ideally, these would be
+  STATE_FILENAME = 'state.json'        # read in from a configuration
+  OUTPUT_FILENAME = 'books.csv'        # or commandline, but this is fine
+
+
+  def get(url: str) -> requests.Response:
+      """Waits a random amount of time, then send a GET request"""
+      time.sleep(random.gauss(DEFAULT_SLEEP, SIGMA))
+      return requests.get(url, headers=HEADERS)
+
+
+  # [TODO] Save links left to visit and the data extracted to a JSON file
+  def save_state(filename: str, links: list[str], data: dict[str, dict]) -> None:
+      pass
+
+
+  # [TODO] Load links left to visit and collected data from a JSON file
+  def load_state(filename: str) -> tuple[list[str], dict[str, dict]]:
+      pass
+
+
+  # [TODO] Write all data to a CSV file
+  def write_spreadsheet(filename: str, data: dict[str, dict]) -> None:
+      pass
+
+
+  if __name__ == '__main__':
+      # [TODO] Load the state file or start fresh if it cannot be read
+      to_visit: list = ['/index.html']
+      data = {}
+      # Main Loop
+      while len(to_visit) > 0:
+          try:
+              pass
+              # [TODO] Process files from to_visit
+              #        This requires:
+              #        - Popping a link from the list
+              #        - Checking to see if it has already been processed
+              #        - Downloading the file the link points to
+              #          - Link should not be removed from to_visit if it
+              #            cannot be downloaded
+              #        - Add the current file to data, using the url as the
+              #          key, and a dictionary containing book data if present
+              #        - Extract links from the HTML
+              #          - Use urljoin(full_url_of_current_doc, link_ref)
+              #            to create the full url for a link
+              #          - Check to see if this full url is already in data
+              #          - If not, append to to_visit
+          except KeyboardInterrupt:
+              save_state(STATE_FILENAME, to_visit, data)
+              is_finished = False
+              break
+      else:
+          is_finished = True
+      if is_finished:
+          write_spreadsheet(OUTPUT_FILENAME, data)
+
+#+end_src
