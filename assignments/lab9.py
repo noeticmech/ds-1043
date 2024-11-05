@@ -41,6 +41,8 @@ def comp(query: str, dunders=False) -> None:
     """Provides completions for all objections in the current Python REPL session.
     By default, objects starting with underscores are excluded, but this behavior can be adjusted by passing dunders=True"""
     options = dict(inspect.getmembers(inspect.stack()[len(inspect.stack()) - 1][0]))["f_globals"]
+    if 'inspect' in options:
+        options.pop('inspect')
     targets = [obj + '.' + attr
                for obj in options.keys()
                for attr in dir(options[obj])
@@ -48,6 +50,8 @@ def comp(query: str, dunders=False) -> None:
                                   or attr.startswith('_'))]
     index = build_index(targets)
     suggestions = fuzzy_pick(query, index)
+    if len(suggestions) == 0:
+        return
     sorted_suggestions = sorted(suggestions.keys(), key=lambda x: len(suggestions[x]), reverse=True)
     longest_match = len(suggestions[sorted_suggestions[0]])
     for suggestion in sorted_suggestions:
