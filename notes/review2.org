@@ -1,0 +1,50 @@
+#+title: Exam 2 Review
+#+author:Matthew Butler
+#+date: 8 November 2024
+:EXPORT:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+:END:
+
+* Types of Question
+- Given a short code listing, answer some questions
+  - What type or value does a certain expression evaluate to?
+  - What type(s) should a variable be in a given context?
+  - What sort of exception may occur at a given point?
+  - What will a data structure look like after the code runs?
+- Given a short code listing, write some code to extend it
+  - Manipulation of strings, lists, and dictionaries/sets
+  - Reading or writing files
+  - Handling potential exceptions
+- Given a problem statement, answer some questions
+  - What information do we need to compute?
+  - What kind of data structures would be best for this problem?
+  - What kind of file would be best for this situation?
+  - Outline a function that solve this problem
+
+* Files
+- See notes
+* Exceptions
+- See notes
+* Strings
+- See notes
+* Lists
+- Functions like ~map~, ~filter~, ~zip~, and ~enumerate~
+- Difference between using the ~+~ operator and ~list.append()~
+- Removing items, finding items, sorting and searching using ~list~ methods
+- Creating new lists vs modifying existing lists
+* Dictionaries and Sets
+- Accessing keys, values, and key-value pairs
+- Constraints on the set of keys
+- Trade-off between Space and Time
+* Slices
+- See notes
