@@ -1,6 +1,6 @@
+from .. import lab4
 import random
 
-import lab4
 
 random.seed()
 
