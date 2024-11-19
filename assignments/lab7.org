@@ -57,7 +57,7 @@ Write a pair of functions that will pretty-print a list of lists or dictionaries
 
 * Zipper Merge
 
-Write a function ~merge_sorted_lists~ that merges any number of previously sorted lists into one sorted list. Do not use ~sorted~ or the ~sort~ method for lists in your solution. You can assume that the type of data in each list is the same.
+Write a function ~merge_sorted_lists~ that merges any number of previously sorted lists into one sorted list. Do not use ~sorted~ or the ~sort~ method for lists in your solution. You can assume that the type of data in each list is the same, and that sorting should be done in ascending order.
 
 * Caesar Caesar!
 
