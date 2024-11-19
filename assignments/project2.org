@@ -1,0 +1,45 @@
+#+title: Project 2: Fuzzy Matching
+#+author:
+#+date: Due: 15 November 2024
+:export:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Noto Sans Mono}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+:end:
+
+* Instructions
+
+This project corresponds with *Lab 9: Fuzzy Matching*.
+
+For this assignment, write a short article using Markdown syntax that introduces and describes the algorithm used in Lab 9 and your implementation of it. You should also include any adjustments or experiments you tried, as well as ideas you may have had but weren't able to implement.
+
+The general structure of your article should be:
+- Introduction
+- Algorithm - A brief explanation of how using an n-gram inverted index for approximate string matching.
+- Implementation - A few paragraphs explaining how you implemented approximate string matching using an n-gram index. This should include a concise discussion of the data structures (lists, dictionaries, etc) used, including your understanding of why those particular structures were used. You should also talk about any adjustments (if any) you may have made to the code given in the lab files.
+- Results - A brief discussion or demonstration of your program working on a small sample of valid strings and query strings.
+- ``Future Work'' - Include at least a few sentences describing potential ways to expand or assess the program that you were not able to do for the lab assignment. In particular, there's a somewhat serious performance flaw in the lab program as presented. This would be a good location to discuss this flaw and potential approaches to fixing it. 
+- Conclusion
+
+#+begin_margintable
+| % of Points | Component                           |
+|-------------+-------------------------------------|
+|          25 | Algorithm Explanation               |
+|          25 | Implementation Narrative            |
+|          25 | Results/Example Walkthrough         |
+|          25 | Document Structure and Presentation |
+#+end_margintable
+
+The total article only needs to be six to twelve paragraphs long. Citations should be included simply as a footnote. You may wish to look at the following paper (specifically the "Introduction" and "Related Work" sections):
+#+begin_quote
+Min-Soo Kim, Kyu-Young Whang, Jae-Gil Lee, and Min-Jae Lee. 2005. N-gram/2L: a space and time efficient two-level n-gram inverted index structure. In Proceedings of the 31st international conference on Very large data bases (VLDB '05). VLDB Endowment, 325–336.
+#+end_quote
+You can find this paper at https://dl.acm.org/doi/pdf/10.5555/1083592.1083632

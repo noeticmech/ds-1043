@@ -1,0 +1,74 @@
+#+title: Lab B: Searching and Sorting
+#+author:
+#+date:  19 November 2024
+:export:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+#+property: header-args :eval no-export
+:end:
+
+* Instructions
+1. Add ~labb.py~ to your ~ds1043~ repository if you have not already done so. I've provided copies of what we did in class on Harvey and on GitHub (see [[https://github.com/noeticmech/ds-1043/blob/master/assignments/labb.py]])
+2. Once you have completed the indicated functions, submit the URL of your repository and the tag for the release/commit you wish to be graded on Harvey.
+
+   *Please be prepared to talk about these exercises in lecture later this week.*
+      
+* Bubble Sort
+
+Add a function ~bubble_sort(data: list, reverse=False) -> list~ to ~labb~. This function should sort ~data~ by looping through the list, comparing each pair of elements and swapping them if they are out of order. Iteration stops when no swaps are performed in a loop.
+
+Running bubble sort on [5, 1, 4, 2, 8] performs the following operations.
+
+- Loop 1
+  - ~[​*5*, *1*, 4, 2, 8] -> [1, 5, 4, 2, 8]~
+  - ~[1, *5*, *4*, 2, 8] -> [1, 4, 5, 2, 8]~
+  - ~[1, 4, *5*, *2*, 8] -> [1, 4, 2, 5, 8]~
+  - ~[1, 4, 2, *5*, *8*​]~ (No change)
+- Loop 2
+  - ~[​*1*, *4*, 2, 5, 8]~ (No change)
+  - ~[1, *4*, *2*, 5, 8] -> [1, 2, 4, 5, 8]~
+  - ~[1, 2, *4*, *5*, 8]~ (No change)
+  - ~[1, 4, 2, *5*, *8*​]~ (No change)
+- Loop 3
+  - ~[​*1*, *4*, 2, 5, 8]~ (No change)
+  - ~[1, *4*, *2*, 5, 8]~ (No change)
+  - ~[1, 2, *4*, *5*, 8]~ (No change)
+  - ~[1, 2, 4, *5*, *8*​]~ (No change)
+- Since no swaps occurred in the last loop, break.
+
+* Merge Sort
+
+Add a function ~merge_sort(data: list, reverse=False) -> list~ to ~labb~. This function should sort ~data~ by dividing the list into parts, sorting those parts, then merging the sorted lists. You may want to revisit the ~merge~ function from Lab 7. This time, you only need to merge two sorted list into one sorted list.
+
+This function could easily be performed using recursion. If ~len(data) == 1~, return the list as "sorted",  else, divide the list into two parts and call ~merge_sort~ on each half, then ~merge~ the results and return the merged result.
+
+* Bisect Search
+
+Add a function ~bisect_search(sorted_data: list, value) -> int~ to ~labb~. This function should search the ~sorted_data~ by dividing the data in half, deciding which half the value would be in, and repeating the search on the appropriate half until the value is found (in which case return the index of the value), or it is determined to be missing (in which case return ~-1~). You may implement this either recursively or iteratively.
+
+* Happy Little Trees
+
+Create a ~Tree~ class that has a data attribute ~_root~ which is a ~Node~. Implement the following methods:
+- ~Tree.__init__(self, iterable=())~ - Initialize a binary search tree with the values in ~iterable~, if any.
+- ~Tree.insert(self, value)~ - Insert a value into the tree. This can use ~_root.insert()~.
+- ~Tree.__iter__(self)~ - This should return a generator that visits each item in the tree in sorted order. This will let us iterate over the tree using a ~for~ loop. You can do this recursively or iteratively, and it may make more sense to implement it as a method of ~Node~ and call ~_root.traverse()~ or similar. Use ~yield~ when you are ready to "return" a value, and ~yield from~ if you call ~__iter__~ (or ~traverse~) recursively. It is helpful to think of this as, for some node ~n~, traversing all of ~n~'s left children, then ~yield~​ing ~n~'s value, then traversing all of ~n~'s right children.
+  #+caption: Recursive Generator Example
+  #+begin_src python
+    def recursive_reverse(data: list):
+        if len(data) == 0: # Stop Condition 
+            return
+        yield data[-1] # This recursion's part of the problem
+        yield from recursive_reverse(data[:-1]) # The rest of the problem
+  #+end_src
+- ~Tree.reverse(self)~ - This should return a generator that visits each item in the tree in reverse order. This will be very similar to ~__iter__~.
+- ~Tree.__contains__(self, value)~ - This should return a boolean value if the value is in the tree. This allows us to use the ~in~ operator for boolean expressions.
+- ~Tree.__repr__(self)~ - This should return a string representation of the tree. It would be appropriate to simply return the value of ~_root.__repr__()~.

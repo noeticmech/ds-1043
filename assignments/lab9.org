@@ -1,0 +1,67 @@
+#+title: Lab 9: Fuzzy Matching
+#+author:
+#+date:  22 October 2024
+:export:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+#+property: header-args :eval no-export
+:end:
+
+* Instructions
+1. Add ~lab9.py~ to your ~ds1043~ repository. I've provided copies on Harvey and on GitHub (see [[https://github.com/noeticmech/ds-1043/blob/master/assignments/lab9.py]])
+2. Once you have completed the indicated functions, submit the URL of your repository and the tag for the release/commit you wish to be graded on Harvey.
+
+* Fuzzy Matching
+
+#+begin_quote
+In computer science, approximate string matching (often colloquially referred to as fuzzy string searching) is the technique of finding strings that match a pattern approximately (rather than exactly). The problem of approximate string matching is typically divided into two sub-problems: finding approximate substring matches inside a given string and finding dictionary strings that match the pattern approximately.
+
+-- Shamelessly stolen from Wikipedia
+#+end_quote
+
+One method of performing approximate string matching is to create a table of valid strings, indexed by their /n-grams/, that is, by each substring of length ~n~ in the valid string, with ~n~ ranging from 1 to the length of the valid string.
+
+To perform an approximate match, the pattern or query is also broken up into n-grams, and these n-grams compared to the table of n-grams to create a set of appropriate suggestions.
+
+** Example
+
+For a set of words ~{diner, inert, linen, lines}~, a subset of the n-gram indexed table can look something like this:
+
+| diner | -> | ['diner']                            |
+| inert | -> | ['inert']                            |
+| linen | -> | ['linen']                            |
+| line  | -> | ['lines', 'linen']                   |
+| iner  | -> | ['diner', 'inert']                   |
+| ine   | -> | ['lines', 'diner', 'inert', 'linen'] |
+| lin   | -> | ['lines', 'linen']                   |
+| ner   | -> | ['diner', 'inert']                   |
+| nes   | -> | ['lines']                            |
+| in    | -> | ['lines', 'diner', 'inert', 'linen'] |
+| ne    | -> | ['lines', 'diner', 'inert', 'linen'] |
+| li    | -> | ['lines', 'linen']                   |
+| er    | -> | ['diner', 'inert']                   |
+| es    | -> | ['lines']                            |
+
+A query against this table for the pattern ~inept~ will break the string into the following n-grams:
+
+~['inept', 'inep', 'nept', 'ine', 'nep', 'ept', 'in', 'ne', 'ep', 'pt', 'i', 'n', 'e', 'p', 't']~
+
+The n-grams ~[inept, inep, nept, nep, ept, ep, pt, p]~ are not found in the index, but ~[ine, in, ne, i, n, e, t]~ are. Since ~ine~ is a common n-gram of all of our example strings, all of them are returned as suggestions.
+
+* Completion
+
+We are going to use an n-gram index to create a completion function that can be used in the Python REPL, sort of like the kind of completion provided by many Integrated Development Environments (IDEs) like PyCharm. The ~comp~ function handles the interface between the user and the Python REPL session. It relies on the following functions, which you will need to implement:
+- ~ngrams~ creates a list of n-grams for any given string.
+- ~add_to_index~ adds a string to the index by finding its n-grams and adding it to each of the lists of valid strings corresponding to each of its n-grams.
+- ~build_index~ creates an empty n-gram index, then adds a given set of options to it using ~add_to_index~.
+- ~fuzzy_match~ creates a dictionary of suggestions given a query and an n-gram index. This dictionary will use valid strings as its keys, and contain the longest n-gram match as its value. This will allow suggestions to be sorted based on length of match, location of match, etc.
+- *You do not /need/ to change the ~comp~ function*... but you can if you want to change how suggestions are sorted or how many are provided.
