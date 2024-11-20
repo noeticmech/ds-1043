@@ -69,6 +69,6 @@ Create a ~Tree~ class that has a data attribute ~_root~ which is a ~Node~. Imple
         yield data[-1] # This recursion's part of the problem
         yield from recursive_reverse(data[:-1]) # The rest of the problem
   #+end_src
-- ~Tree.reverse(self)~ - This should return a generator that visits each item in the tree in reverse order. This will be very similar to ~__iter__~.
+- ~Tree.__reversed__(self)~ - This should return a generator that visits each item in the tree in reverse order. This will be very similar to ~__iter__~.
 - ~Tree.__contains__(self, value)~ - This should return a boolean value if the value is in the tree. This allows us to use the ~in~ operator for boolean expressions.
 - ~Tree.__repr__(self)~ - This should return a string representation of the tree. It would be appropriate to simply return the value of ~_root.__repr__()~.
