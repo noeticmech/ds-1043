@@ -1,0 +1,112 @@
+#+title: Object-Oriented Programming
+#+author:
+#+date: 15 November 2024
+:export:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+#+latex_header: \usepackage{tabulary}
+#+property: header-args :eval no-export
+:end:
+
+*Objects* are effectively "bundles" of data and code that work on those data. In Python, when we talk about "type", we are talking specifically about a type of object (this is not necessarily true in other languages).
+
+A *class* is the blueprint for an object. Once defined, the *class object* can be used to *instantiate* new *instances* of the class.
+
+Objects have *attributes* and *methods*, which are the data particular to that instance and the functions that work on that data. We will sometimes call these *members* of the class.
+
+#+begin_src python
+  class Node:
+
+    def __init__(self, value, parent=None):  # Constructor Method
+        self._value = value                  # these are instance attributes
+        self._parent = parent                # they are specific to a particular instance of the class
+        self._left = None             
+        self._right = None
+
+#+end_src
+
+The function ~__init__~ is the constructor for our class. It is called whenever we call the class object. Methods take the object they work on as their first argument (named ~self~ by convention). This argument does not need to be specified when calling the method using dot notation.
+
+It is convention to name members with an identifier starting with an ~_~ (underscore) if they are not meant to be directly accessed by code outside of the class.  This is a kind of abstraction that we call *encapsulation*, and allows users of the class to not need to understand how the class works internally in order to use it.
+
+#+begin_src python
+root = Node(5)
+#+end_src
+
+Python allows us to create objects that conform to a common interface through the *Python Data Model*. While the Python Data Model covers more than this, our focus is going to be on implementing operators for our objects. This is commonly called *operator overloading*.
+
+#+begin_src python
+  # Implement dunder methods to overload the relational boolean operators
+  # ==, >, <, <=, >=
+  def __eq__(self, other):
+      return self._value == other
+
+  def __gt__(self, other):
+      return self._value > other
+
+  def __lt__(self, other):
+      return self._value < other
+
+  def __le__(self, other):
+      return self._value <= other
+
+  def __ge__(self, other):
+      return self._value >= other
+#+end_src
+
+To give our object a string representation, we implement the ~__repr__~ function. This function will also be used by default for the ~str~ function, unless ~__str__~ is also implemented in the class.
+
+#+begin_src python
+      def __repr__(self):
+        if self._left is None and self._right is None:
+            return f'{self._value}'
+        return f'{self._value} ({self._left}, {self._right})'
+#+end_src
+
+
+Classes can be extended via a mechanism called *inheritance*. There are a few different ways to talk about this relationship between classes, but it is common to refer to the class being extended as the *base class* or *superclass* and the class based on it the *subclass*. The subclass inherits the base classes's attributes and methods, meaning we do not need to explicitly define them in the subclass. We can overload (i.e. re-define) methods if we wish.
+
+#+begin_src python
+  class KeyedNode (Node):
+
+      def __init__(self, key, value parent=None):
+          super().__init__(key, parent)
+          self._item = value
+          # In this example, we are changing what "value" is in the outward-facing interface
+          # We are storing (key, value) pairs using _value and _item respectively
+#+end_src
+
+To inherit from a class, specify that class in parentheses after the class name in the class header.
+
+To access access methods from the base class, you can use the ~super~ function. In this example, we call the base class's constructor, then create an additional attribute, ~_item~.
+
+One of the primary reasons to use inheritance is to create *interfaces*, that is, a common set of methods that allow functions to be written in such a way that they can work on several different types, a property called *polymorphism*. These interfaces are defined by creating *abstract base classes*. An abstract base class will never be instantiated but explicitly exists to be extended by other classes. Methods in an abstract base class may not even be implemented in the base class itself, and will need to be implemented by the subclass.
+
+In addition to explict inheritence, Python allows for a kind of virtual inheritance. That is, as long as a class implements the correct set of methods, Python will recognize objects of that type as being instances of the abstract base classes to which those methods belong (e.g. with ~isinstance~).
+
+- ~Container~: ~__contains__~
+- ~Iterable~:  ~__iter__~
+- ~Reversible~: ~__reversed__~
+- ~Sized~: ~__len__~
+- ~Collection~: ~__contains__~, ~__iter__~, ~__len__~
+- ~Sequence~: ~__getitem__~, ~index~, ~count~,  and the functions for ~Collection~, and ~Reversible~
+- ~MutableSequence~: ~__setitem__~, ~__delitem__~, ~insert~, ~append~, ~extend~, ~clear~, ~pop~, ~remove~, ~__iadd__~, and the functions for ~Sequence~
+- ~Mapping~: ~__getitem__~, ~keys~, ~values~, ~items~, ~get~, ~__eq__~, ~__ne__~, and the functions for ~Collection~
+- ~MutableMapping~: ~__setitem__~, ~__delitem__~, ~pop~, ~popitem~, ~clear~, ~update~, ~setdefault~, and the functions for ~Mapping~
+
+A very common way to document classes is via a *class diagram*. A class diagram shows each class, its members, and the relationship between them. There are several different relationships that can be represented in a class diagram, but the most useful for our purposes is that of inheritence. We represent this relationship using an arrowed line with an empty arrowhead.
+
+#+caption: Class Diagram for Node and KeyedNode
+#+name:   fig:classy
+[[./class_diagram.png]]
+
+

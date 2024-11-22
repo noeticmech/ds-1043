@@ -1,0 +1,71 @@
+#+title: Final Review
+#+author:
+#+date:
+:export:
+#+latex_class: tufte-handout
+#+options: toc:nil
+#+latex_compiler: xelatex
+#+latex_header: \usepackage[final]{microtype}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \setmainfont{Gentium Plus}
+#+latex_header: \setmonofont[Scale=0.8]{Maple Mono NF}
+#+latex_header: \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+#+latex_header: \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist{nosep}
+#+property: header-args :eval no-export
+:end:
+
+* Analysis of Algorithms
+- Be able to identify and describe the complexity of algorithms discussed in class (and analogous algorithms) using the language of asympotic analysis.
+- Be able to answer some basic questions about algorithm or data structure choice based on its computational complexity
+* Searching and Sorting
+* Object-Oriented Programming
+- Be able to describe what an object is and how it differs from a class
+- Be able to read a minimal class diagram and answer questions about it
+- Be able to write code to define a class
+- Be familiar with the methods that allow a class to be treated as a ~Container~, ~Iterable~, ~Reversable~, ~Sized~, ~Collection~, ~Sequence~, ~MutableSequence~, ~Mapping~, and ~MutableMapping~ from ~collections.abc~
+* Generators
+- Be able to articulate general situations one might want to define and/or use a generator
+- Be able to read and write generator comprehensions
+- Be able to write a basic generator function
+* Web Scraping
+* Dictionaries and Sets
+- Be able to read and write dictionary comprehensions
+- Be able to read and write code accessing dictionary keys, values, and key-value pairs
+- Be able to articulate the constraints placed on the set of dictionary keys
+- Be able to articulate the trade-off between memory space and execution time involved when using dictionaries
+* Lists
+- Be able to read and write expressions using ~filter~, ~map~, ~zip~, ~enumerate~.
+- Be able to read and write list comprehensions
+- Be familiar with the difference between using the ~+~ operator and ~list.append()~
+- Be able to write and read code removing items, adding items, sorting and searching using ~list~ methods
+- Be able to recognize when code creates a new list (or a generator) verses modifying an existing list in-place
+* Files
+- Be able to write basic code for reading and writing files using a ~ContextManager~ (i.e. ~with open... as...:~)
+- Be able to read file i/o code and describe what is happening
+- Be able to articulate the difference between text and binary mode and describe when each would be used
+- Be able to articulate the pros and cons of using ~pickle~, ~json~, and ~cvs~
+* Exceptions
+- Know the most commonly used built-in exceptions and which situations will cause them to be raised
+- Be able to articulate when one should raise exceptions
+- Be able to articulate when one should handle exceptions
+- Be able to write code to raise exceptions
+- Be able to write code to handle exceptions
+- Be able to read exception handling code and describe what is happening
+* Slices
+- Be able to read and write expressions that use slices to to select a subset of a sequence's elements 
+* Strings
+- Be able to articulate the difference between different types of string
+- Be able to use escape codes for quotes, tabs, newlines, and backslash
+- Be able to write code using ~string~ methods
+- Be able to read code using ~string~ methods and describe what is happening
+- Be able to read code using f-strings for string interpolation
+* Iteration
+* Tuples
+- Be able to read and write code that uses tuple packing and unpacking
+* Functions
+- Be able to identify positional and keyword parameters
+- Be able to articulate the difference between arguments and parameters
+- Be able to describe what makes a good function
+* Basics
