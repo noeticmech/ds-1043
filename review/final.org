@@ -25,6 +25,7 @@
 - Be able to read a minimal class diagram and answer questions about it
 - Be able to write code to define a class
 - Be familiar with the methods that allow a class to be treated as a ~Container~, ~Iterable~, ~Reversable~, ~Sized~, ~Collection~, ~Sequence~, ~MutableSequence~, ~Mapping~, and ~MutableMapping~ from ~collections.abc~
+- Know which dunder methods correspond with which operators
 * Generators
 - Be able to articulate general situations one might want to define and/or use a generator
 - Be able to read and write generator comprehensions
@@ -69,3 +70,5 @@
 - Be able to articulate the difference between arguments and parameters
 - Be able to describe what makes a good function
 * Basics
+* Assumed Known Functions
+Complete later... built-ins, container methods
