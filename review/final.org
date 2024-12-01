@@ -19,36 +19,62 @@
 * Analysis of Algorithms
 - Be able to identify and describe the complexity of algorithms discussed in class (and analogous algorithms) using the language of asympotic analysis.
 - Be able to answer some basic questions about algorithm or data structure choice based on its computational complexity
-* Searching and Sorting
+* Recursion
 * Object-Oriented Programming
 - Be able to describe what an object is and how it differs from a class
 - Be able to read a minimal class diagram and answer questions about it
 - Be able to write code to define a class
 - Be familiar with the methods that allow a class to be treated as a ~Container~, ~Iterable~, ~Reversable~, ~Sized~, ~Collection~, ~Sequence~, ~MutableSequence~, ~Mapping~, and ~MutableMapping~ from ~collections.abc~
 - Know which dunder methods correspond with which operators
+  | Operator    | Dunder Methods           |
+  |-------------+--------------------------|
+  | ~len()~       | ~__len__~                  |
+  | ~[]~          | ~__getitem__~, ~__setitem__~ |
+  | ~in~          | ~__contains__~             |
+  | ~==~, ~!=~      | ~__eq__~, ~__ne__~           |
+  | ~>~, ~<~        | ~__gt__~, ~__lt__~           |
+  | ~>=~, ~<=~      | ~__ge__~, ~__le__~           |
+  | ~+~           | ~__add__~, ~__radd__~        |
+  | ~+=~          | ~__iadd__~                 |
+  | ~del~         | ~__delitem__~              |
+  | ~for...in...~ | ~__iter__~                 |
+  | ~reversed()~  | ~__reverse__~              |
 * Generators
 - Be able to articulate general situations one might want to define and/or use a generator
 - Be able to read and write generator comprehensions
 - Be able to write a basic generator function
 * Web Scraping
+- Be able to retrieve files by URL using HTTP GET requests
+- Be able to verify the status code of the resulting response
+- Be able to write code to find tags by name 
 * Dictionaries and Sets
-- Be able to read and write dictionary comprehensions
-- Be able to read and write code accessing dictionary keys, values, and key-value pairs
+- Be able to describe dictionaries as a data structure in terms of interface and implementation 
 - Be able to articulate the constraints placed on the set of dictionary keys
-- Be able to articulate the trade-off between memory space and execution time involved when using dictionaries
+- Be able to read and write code accessing dictionary keys, values, and key-value pairs
+  - methods: ~keys~, ~values~, ~items~
+  - ~for item in dictionary~ iterates over the keys of ~dictionary~
+- Be able to read and write dictionary/set comprehensions
+- Be able to articulate the trade-off between memory space and execution time involved when using a dictionary backed by a hash table
 * Lists
-- Be able to read and write expressions using ~filter~, ~map~, ~zip~, ~enumerate~.
 - Be able to read and write list comprehensions
+- Be able to read and write expressions using ~filter~, ~map~, ~zip~, ~enumerate~.
 - Be familiar with the difference between using the ~+~ operator and ~list.append()~
-- Be able to write and read code removing items, adding items, sorting and searching using ~list~ methods
+- Be able to write and read code using ~list~ methods to:
+  - add items: ~append~, ~insert~, ~extend~
+  - remove items: ~pop~, ~remove~, ~clear~
+  - sort items: ~sort~
+  - search items: ~index~, ~count~
 - Be able to recognize when code creates a new list (or a generator) verses modifying an existing list in-place
+  - ~list~ methods modify the list in-place
+  - operators like ~+~ and ~[:]~ make a new list
+  - functions like ~sorted~ and ~reverse~ create a new list and an iterator, respectively
 * Files
 - Be able to write basic code for reading and writing files using a ~ContextManager~ (i.e. ~with open... as...:~)
 - Be able to read file i/o code and describe what is happening
 - Be able to articulate the difference between text and binary mode and describe when each would be used
 - Be able to articulate the pros and cons of using ~pickle~, ~json~, and ~cvs~
 * Exceptions
-- Know the most commonly used built-in exceptions and which situations will cause them to be raised
+- Know common built-in exceptions and which situations will cause them to be raised
 - Be able to articulate when one should raise exceptions
 - Be able to articulate when one should handle exceptions
 - Be able to write code to raise exceptions
@@ -61,7 +87,7 @@
 - Be able to use escape codes for quotes, tabs, newlines, and backslash
 - Be able to write code using ~string~ methods
 - Be able to read code using ~string~ methods and describe what is happening
-- Be able to read code using f-strings for string interpolation
+- Be able to read and write code using f-strings for string interpolation only (i.e. no formatting)
 * Iteration
 * Tuples
 - Be able to read and write code that uses tuple packing and unpacking
@@ -70,5 +96,4 @@
 - Be able to articulate the difference between arguments and parameters
 - Be able to describe what makes a good function
 * Basics
-* Assumed Known Functions
-Complete later... built-ins, container methods
+- ~type~, ~isinstance~
