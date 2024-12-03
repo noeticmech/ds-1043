@@ -46,7 +46,8 @@
 * Web Scraping
 - Be able to retrieve files by URL using HTTP GET requests
 - Be able to verify the status code of the resulting response
-- Be able to write code to find tags by name 
+- Be able to write code to find tags by name
+- Be able to describe the main strategies for avoiding being blocked
 * Dictionaries and Sets
 - Be able to describe dictionaries as a data structure in terms of interface and implementation 
 - Be able to articulate the constraints placed on the set of dictionary keys
