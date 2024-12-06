@@ -20,6 +20,7 @@
 - Be able to identify and describe the complexity of algorithms discussed in class (and analogous algorithms) using the language of asympotic analysis.
 - Be able to answer some basic questions about algorithm or data structure choice based on its computational complexity
 * Recursion
+- Be able to describe the concept of recursion
 * Object-Oriented Programming
 - Be able to describe what an object is and how it differs from a class
 - Be able to read a minimal class diagram and answer questions about it
@@ -41,12 +42,19 @@
   | ~reversed()~  | ~__reverse__~              |
 * Generators
 - Be able to articulate general situations one might want to define and/or use a generator
+  - Can defer computation and do not need to store items, just process them
+  - When Python expects one, i.e. ~__iter__~
 - Be able to read and write generator comprehensions
 - Be able to write a basic generator function
+  - use ~yield~ instead of ~return~
+  - will return an generator
 * Web Scraping
 - Be able to retrieve files by URL using HTTP GET requests
 - Be able to verify the status code of the resulting response
 - Be able to write code to find tags by name
+  - ~BeautifulSoup.find~
+  - ~BeautifulSoup.find_all~
+  - ~BeautifulSoup.<tag name>~
 - Be able to describe the main strategies for avoiding being blocked
 * Dictionaries and Sets
 - Be able to describe dictionaries as a data structure in terms of interface and implementation 
@@ -56,6 +64,9 @@
   - ~for item in dictionary~ iterates over the keys of ~dictionary~
 - Be able to read and write dictionary/set comprehensions
 - Be able to articulate the trade-off between memory space and execution time involved when using a dictionary backed by a hash table
+- Be aware of gotchas with mutable data types
+- Be able to use dictionary/set methods to add or remove items
+  - will include ~union~ or ~|~
 * Lists
 - Be able to read and write list comprehensions
 - Be able to read and write expressions using ~filter~, ~map~, ~zip~, ~enumerate~.
@@ -69,6 +80,7 @@
   - ~list~ methods modify the list in-place
   - operators like ~+~ and ~[:]~ make a new list
   - functions like ~sorted~ and ~reverse~ create a new list and an iterator, respectively
+- Be able to describe difference between shallow and deep copies
 * Files
 - Be able to write basic code for reading and writing files using a ~ContextManager~ (i.e. ~with open... as...:~)
 - Be able to read file i/o code and describe what is happening
@@ -98,3 +110,6 @@
 - Be able to describe what makes a good function
 * Basics
 - ~type~, ~isinstance~
+- ~range~, ~len~
+- relational operators
+- arithmetic operators, including modulo and integer division
