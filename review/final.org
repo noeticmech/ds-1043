@@ -21,6 +21,10 @@
 - Be able to answer some basic questions about algorithm or data structure choice based on its computational complexity
 * Recursion
 - Be able to describe the concept of recursion
+  - Useful for naturally recursive problems (tree traversal, for example)
+  - Trades code simplicity for call stack complexity
+  - A recursive function will  generally sub-divide a problem until it becomes trivial, then return some combination of smaller solved sub-problems
+    - Ex. mergesort divides the problem of sorting a list until it reaches single-element lists (naturally sorted), then combines the merge of these sorted lists back up the call stack
 * Object-Oriented Programming
 - Be able to describe what an object is and how it differs from a class
 - Be able to read a minimal class diagram and answer questions about it
